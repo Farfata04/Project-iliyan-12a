@@ -1,0 +1,27 @@
+﻿@model Department
+
+@{
+    ViewData["Title"] = "Create new department";
+    Layout = "_Layout";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <section>
+            <form asp-action="Update" asp-area="Admin" asp-controller="Department" method="post">
+                <h2>@ViewData["Title"]</h2>
+                <hr/>
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="@Model.DepartmentName" class="form-control" aria-required="true" placeholder="name"/>
+                    <label asp-for="@Model.DepartmentName" class="form-label">Name</label>
+                    <span asp-validation-for="@Model.DepartmentName" class="text-danger"></span>
+                </div>
+                  @Html.HiddenFor(m => m.DepartmentId)
+                <div>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Update</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

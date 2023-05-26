@@ -1,0 +1,40 @@
+@model IEnumerable<RoleModel>
+
+@{
+    ViewData["Title"] = "";
+    Layout = "_Layout";
+}
+<h1 class="depart">Roles</h1>
+
+<h2>@ViewData["Title"]</h2>
+<div class="row justify-content-end">
+    <a asp-action="Create" asp-controller="Role" class="col-md-2 btn btn-success">Add role</a>
+</div>
+<div class="row">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">@Html.DisplayNameFor(m => m.Name)</th>
+            <th scope="col">@Html.DisplayNameFor(m => m.ActiveUsers)</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var (role, index) in Model.Select((m, i) => (m, i)))
+        {
+            <tr>
+                <th scope="row">@(index + 1)</th>
+                <td>@Html.DisplayFor(m => role.Name)</td>
+                <td>@Html.DisplayFor(m => role.ActiveUsers)</td>
+                <td>
+                    @if (role.Name != "Administrator")
+                    {
+                        <a class="btn btn-link text-danger">Delete</a>
+                    }
+                </td>
+            </tr>  
+        }
+        </tbody>
+    </table>
+</div>
