@@ -28,7 +28,7 @@
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Chat">Chat</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-area="" asp-action="Chat">Chat</a>
                         </li>
 
                         @if (User.IsInRole("Administrator"))
