@@ -1,0 +1,62 @@
+﻿@model IEnumerable<WebChat.Data.PendingInvite>
+
+@{
+    ViewData["Title"] = "User Invites";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (!Model.Any())
+{
+    <h3>There are no user invitations currently in the database</h3>
+    <a asp-action="Create" class="col-md-2 btn btn-success">Invite user</a>
+}
+else
+{
+    <div class="row justify-content-end">
+        <a asp-action="Create" class="col-md-2 btn btn-success">Invite user</a>
+    </div>
+    <div class="row">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Email)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                    <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                    <th>@Html.DisplayNameFor(model => model.Department)</th>
+                    <th>@Html.DisplayNameFor(model => model.InvitedOn)</th>
+                    <th>@Html.DisplayNameFor(model => model.IsConfirmed)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Department.DepartmentName)</td>
+                <td>@Html.DisplayFor(modelItem => item.InvitedOn)</td>
+                <td>@if (item.IsConfirmed)
+                    {
+                        <span class="text text-success">Confirmed</span>
+                    }
+                    else
+                    {
+                        <span class="text text-danger">Not Confirmed</span>
+                    }
+                    </td>
+                <td>
+                    @if(!item.IsConfirmed)
+                    {
+                        <a class="btn btn-link text-danger" asp-action="Delete" asp-route-id="@item.PendingInviteId">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+            </tbody>
+        </table>
+    </div>
+}
+

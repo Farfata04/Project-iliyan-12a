@@ -1,0 +1,64 @@
+@using WebChat.Common
+@model IEnumerable<UserModel>
+
+@{
+    ViewData["Title"] = "";
+    Layout = "_Layout";
+}
+<h1 class="depart">Users</h1>
+
+<h2>@ViewData["Title"]</h2>
+
+
+
+@if (!Model.Any())
+{
+    <h3>There are currently no users in the database</h3>
+    <a asp-action="Create" asp-controller="PendingInvites" class="col-md-2 btn btn-success">Invite user</a>
+}
+else
+{
+    <div class="row justify-content-end">
+        <a asp-action="Create" asp-controller="PendingInvites" class="col-md-2 btn btn-success">Invite user</a>
+    </div>
+    <div class="row">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.Username)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.FirstName)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.LastName)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.Email)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.RoleName)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.DepartmentName)</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var (user, index) in Model.Select((u, i) => (u, i)))
+            {
+                <tr>
+                    <th scope="row">@(index + 1)</th>
+                    <td>@Html.DisplayFor(m => user.Username)</td>
+                    <td>@Html.DisplayFor(m => user.FirstName)</td>
+                    <td>@Html.DisplayFor(m => user.LastName)</td>
+                    <td>@Html.DisplayFor(m => user.Email)</td>
+                    <td>@Html.DisplayFor(m => user.RoleName)</td>
+                    <td>@Html.DisplayFor(m => user.DepartmentName)</td>
+                    <td>
+                        @if (user.RoleName == String.Empty)
+                        {
+                            <a asp-action="AddRole" asp-route-userId="@user.Id" class="btn btn-link text-link">Set as User</a>
+                        }
+                        @if(user.RoleName != Constants.AdministratorRoleName)
+                        {
+                            <a asp-action="MoveUser" asp-route-id="@user.Id" class="btn btn-link text-link">Move</a>
+                        }
+                    </td>
+                </tr>  
+            }
+            </tbody>
+        </table>
+    </div>
+}
