@@ -1,0 +1,54 @@
+@{
+    ViewData["Title"] = "Chat";
+}
+<h1>@ViewData["Title"]</h1>
+
+<link rel="stylesheet" href="~/css/chat-styles.css" asp-append-version="true"/>
+<div class="container">
+    <div>
+        <div class="inbox_msg">
+            <div class="inbox_people">
+                <div class="headind_srch">
+                    <div class="recent_heading">
+                        <h4>People in @ViewBag.DepartmentName</h4>
+                    </div>
+                </div>
+                <div class="inbox_chat" id="online-people">
+                    
+                    @foreach (var user in ViewBag.People)
+                    {
+                        <div class="chat_list">
+                            <div class="chat_people">
+                                <div class="chat_img">
+                                    <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
+                                </div>
+                                <div class="chat_ib" id="@user.Id">
+                                    <h5>@user.FirstName @user.LastName
+                                        <span hidden class="badge badge-pill badge-success">Online</span>
+                                        <span class="badge badge-pill badge-light">Offline</span>
+                                    </h5>
+                                        <p class="chat_date">Invited On: Dec 25</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="mesgs">
+                <div id="msg_history" class="msg_history">
+                </div>
+                <div class="type_msg">
+                    <div class="input_msg_write">
+                        <input id="messageInput" type="text" class="write_msg" placeholder="Type a message. Press enter to send "/>
+                        <button class="msg_send_btn" type="button">
+                            <i class="fa fa-send" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js" asp-append-version="true"></script>
